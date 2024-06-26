@@ -34,10 +34,11 @@ void withdraw_iter(BankAccount& ba, int amount, int count);
 
 int main()
 {
-	int amount, count = 100;
+	int amount = 100;
+	int count = 100;
 	BankAccount ba;
 
-	thread depo(deposit_iter,ref(ba), amount, count);
+	thread depo(deposit_iter, ref(ba), amount, count);
 	thread with(withdraw_iter, ref(ba), amount, count);
 
 	depo.join();
