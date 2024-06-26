@@ -4,6 +4,8 @@
 #include <mutex>
 using namespace std;
 
+mutex mtx;
+
 class BankAccount
 {
 public:
@@ -11,21 +13,12 @@ public:
 	int balance = 1000; // 예금된 금액
 	void deposit(int amount) // 입금
 	{
-		cout << "현재 금액 : " << balance << endl;
-		cout << "얼마를 입금하시겠습니까? ";
-		cin >> amount;
-		cout << endl;
-
 		balance = balance + amount;
 		cout << "총 금액 : " << balance << endl;
 
 	}
 	void withdraw(int amount) // 출금
 	{
-		cout << "현재 금액 : " << balance << endl;
-		cout << "얼마를 출금하시겠습니까? ";
-		cin >> amount;
-
 		balance = balance - amount;
 		cout << "총 금액 : " << balance << endl;
 	}
@@ -41,8 +34,14 @@ void withdraw_iter(BankAccount& ba, int amount, int count);
 
 int main()
 {
+	int amount, count = 100;
+	BankAccount ba;
 
+	thread depo(deposit_iter,ref(ba), amount, count);
+	thread with(withdraw_iter, ref(ba), amount, count);
 
+	depo.join();
+	with.join();
 	// deposit_iter, withdraw_iter 스레드 객체로 생성
 	// amount = 100, count = 100
 
@@ -50,16 +49,20 @@ int main()
 
 void deposit_iter(BankAccount& ba, int amount, int count)
 {
-	cout << "몇 번을 입금하시겠습니까? ";
-	cin >> count;
-
 	for (int i = 0; i < count; i++)
 	{
-
+		mtx.lock();
+		ba.deposit(amount);
+		mtx.unlock();
 	}
 }
 
 void withdraw_iter(BankAccount& ba, int amount, int count)
 {
-
+	for (int i = 0; i < count; i++)
+	{
+		mtx.lock();
+		ba.withdraw(amount);
+		mtx.unlock();
+	}
 }
