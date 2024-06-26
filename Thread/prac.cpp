@@ -1,4 +1,4 @@
-#include <iostream>
+ï»¿#include <iostream>
 #include <vector>
 #include <thread>
 #include <mutex>
@@ -10,25 +10,25 @@ class BankAccount
 {
 public:
 
-	int balance = 1000; // ¿¹±İµÈ ±İ¾×
-	void deposit(int amount) // ÀÔ±İ
+	int balance = 1000; // ì˜ˆê¸ˆëœ ê¸ˆì•¡
+	void deposit(int amount) // ì…ê¸ˆ
 	{
 		balance = balance + amount;
-		cout << "ÃÑ ±İ¾× : " << balance << endl;
+		cout << "ì´ ê¸ˆì•¡ : " << balance << endl;
 
 	}
-	void withdraw(int amount) // Ãâ±İ
+	void withdraw(int amount) // ì¶œê¸ˆ
 	{
 		balance = balance - amount;
-		cout << "ÃÑ ±İ¾× : " << balance << endl;
+		cout << "ì´ ê¸ˆì•¡ : " << balance << endl;
 	}
 
 };
 
-// count È½¼ö ¸¸Å­ amount¸¦ ÀÔ±İ(deposit)
+// count íšŸìˆ˜ ë§Œí¼ amountë¥¼ ì…ê¸ˆ(deposit)
 void deposit_iter(BankAccount& ba, int amount, int count);
 
-// count È½¼ö ¸¸Å­ amount¸¦ Ãâ±İ(withdraw)
+// count íšŸìˆ˜ ë§Œí¼ amountë¥¼ ì¶œê¸ˆ(withdraw)
 void withdraw_iter(BankAccount& ba, int amount, int count);
 
 
@@ -42,7 +42,7 @@ int main()
 
 	depo.join();
 	with.join();
-	// deposit_iter, withdraw_iter ½º·¹µå °´Ã¼·Î »ı¼º
+	// deposit_iter, withdraw_iter ìŠ¤ë ˆë“œ ê°ì²´ë¡œ ìƒì„±
 	// amount = 100, count = 100
 
 }
