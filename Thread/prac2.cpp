@@ -20,7 +20,7 @@ void timer(int sec)
 void wait_for_alarm()
 {
 	unique_lock<mutex>lock(mtx);
-	cv.wait(lock, []{ return alarrm_set; });
+	cv.wait(lock, []{ return alarrm_set; }); //alarrm set 이 false일동안 wait
 	cout << "알람이 울립니다!!" << endl;
 }
 

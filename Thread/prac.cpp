@@ -4,13 +4,13 @@
 #include <mutex>
 using namespace std;
 
-mutex mtx;
+mutex g_mtx;
 
 class BankAccount
 {
 public:
-
-	int balance = 1000; // 예금된 금액
+	// mutable mutex mtx; mutex를 클래스 안에만 하면 쓰는데 거의 글로벌
+	atomic<int> balance = 1000; // 예금된 금액
 	void deposit(int amount) // 입금
 	{
 		balance = balance + amount;
@@ -33,7 +33,7 @@ void withdraw_iter(BankAccount& ba, int amount, int count);
 
 
 int main()
-{
+{  
 	int amount = 100;
 	int count = 100;
 	BankAccount ba;
@@ -52,9 +52,9 @@ void deposit_iter(BankAccount& ba, int amount, int count)
 {
 	for (int i = 0; i < count; i++)
 	{
-		mtx.lock();
+		g_mtx.lock();
 		ba.deposit(amount);
-		mtx.unlock();
+		g_mtx.unlock();
 	}
 }
 
@@ -62,8 +62,8 @@ void withdraw_iter(BankAccount& ba, int amount, int count)
 {
 	for (int i = 0; i < count; i++)
 	{
-		mtx.lock();
+		g_mtx.lock();
 		ba.withdraw(amount);
-		mtx.unlock();
+		g_mtx.unlock();
 	}
 }

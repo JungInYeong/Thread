@@ -30,5 +30,8 @@
     <ClCompile Include="prac2.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="sql.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
